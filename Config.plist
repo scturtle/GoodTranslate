@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>After</key>
+			<string>preview-result</string>
+			<key>Image File</key>
+			<string>icon.png</string>
+			<key>Script Interpreter</key>
+			<string>/usr/bin/python</string>
+			<key>Shell Script File</key>
+			<string>goodtranslate.py</string>
+			<key>Title</key>
+			<string>Good Tranlate</string>
+		</dict>
+	</array>
+	<key>Extension Description</key>
+	<string>Translate selected text instantly using google translate.</string>
+	<key>Extension Identifier</key>
+	<string>com.popclip.extension.goodtranslate</string>
+	<key>Extension Name</key>
+	<string>Good Translate</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Option Identifier</key>
+			<string>destlang</string>
+			<key>Option Label</key>
+			<string>Destination Language</string>
+			<key>Option Type</key>
+			<string>string</string>
+			<key>Option Default Value</key>
+			<string>zh-CN</string>
+		</dict>
+		<dict>
+			<key>Option Identifier</key>
+			<string>tts</string>
+			<key>Option Label</key>
+			<string>Text To Speech</string>
+			<key>Option Type</key>
+			<string>boolean</string>
+			<key>Option Default Value</key>
+			<string>False</string>
+		</dict>
+		<dict>
+			<key>Option Identifier</key>
+			<string>ttslang</string>
+			<key>Option Label</key>
+			<string>TTS Language</string>
+			<key>Option Type</key>
+			<string>string</string>
+			<key>Option Default Value</key>
+			<string>en</string>
+		</dict>
+	</array>
+	<key>Version</key>
+	<integer>1</integer>
+</dict>
+</plist>
