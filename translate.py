@@ -28,7 +28,7 @@ class Translator:
         escaped_source = quote(source, '')
         req = request.Request(
                 url=("http://translate.google.com/translate_a/single?"
-                     "client=t&ie=UTF-8&oe=UTF-8&dt=t&sl=%s&tl=%s&q=%s"
+                     "client=t&ie=UTF-8&oe=UTF-8&dt=t&sl=%s&tl=%s&tk&q=%s"
                      ) % (self.from_lang, self.to_lang, escaped_source),
                 headers={'User-Agent': 'Mozilla/5.0'})
         r = request.urlopen(req)
