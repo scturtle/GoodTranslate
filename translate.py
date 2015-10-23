@@ -22,7 +22,7 @@ class Translator:
             json = json.replace(pattern, res)
         json = eval(json, {'false': False, 'true': True})
         # pprint(json)
-        return ''.join(i[0] for i in json[0])
+        return ''.join(s[0] for s in json[0])
 
     def _get_json(self, source):
         escaped_source = quote(source, '')
