@@ -6,7 +6,7 @@ try:
 except:
     from urllib import request
     from urllib.parse import quote
-
+from tk import calc_tk
 
 class Translator:
     tran_table = [(',,,,', ',None,None,None,'), (',,,', ',None,None,'),
@@ -28,8 +28,8 @@ class Translator:
         escaped_source = quote(source, '')
         req = request.Request(
                 url=("http://translate.google.com/translate_a/single?"
-                     "client=t&ie=UTF-8&oe=UTF-8&dt=t&sl=%s&tl=%s&tk&q=%s"
-                     ) % (self.from_lang, self.to_lang, escaped_source),
+                     "client=t&ie=UTF-8&oe=UTF-8&dt=t&sl=%s&tl=%s&q=%s&tk=%s"
+                     ) % (self.from_lang, self.to_lang, escaped_source, calc_tk(source)),
                 headers={'User-Agent': 'Mozilla/5.0'})
         r = request.urlopen(req)
         return r.read().decode('utf-8')
