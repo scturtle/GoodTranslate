@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# from pprint import pprint
+import json
 try:
     import urllib2 as request
     from urllib import quote
@@ -8,21 +8,21 @@ except:
     from urllib.parse import quote
 from tk import calc_tk
 
+
 class Translator:
-    tran_table = [(',,,,', ',None,None,None,'), (',,,', ',None,None,'),
-                  (',,', ',None,'), ('[,', '[None,'), (',]', ',None]')]
+    tran_table = [(',,,,', ',null,null,null,'), (',,,', ',null,null,'),
+                  (',,', ',null,'), ('[,', '[null,'), (',]', ',null]')]
 
     def __init__(self, to_lang, from_lang='auto'):
         self.from_lang = from_lang
         self.to_lang = to_lang
 
     def translate(self, source):
-        json = self._get_json(source)
+        s = self._get_json(source)
         for pattern, res in self.tran_table:
-            json = json.replace(pattern, res)
-        json = eval(json, {'false': False, 'true': True})
-        # pprint(json)
-        return ''.join(s[0] for s in json[0])
+            s = s.replace(pattern, res)
+        j = json.loads(s)
+        return ''.join(sen[0] for sen in j[0])
 
     def _get_json(self, source):
         escaped_source = quote(source, '')
@@ -37,7 +37,6 @@ class Translator:
 if __name__ == "__main__":
     import argparse
     import sys
-    import locale
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('texts', metavar='text', nargs='+',
                         help='a string to translate'
@@ -53,7 +52,4 @@ if __name__ == "__main__":
     translator = Translator(from_lang=args.from_lang, to_lang=args.to_lang)
     for text in args.texts:
         translation = translator.translate(text)
-        if sys.version_info.major == 2:
-            translation = translation.decode('utf-8')\
-                                     .encode(locale.getpreferredencoding())
-        sys.stdout.write(translation + '\n')
+        sys.stdout.write(translation.encode('utf-8') + '\n')

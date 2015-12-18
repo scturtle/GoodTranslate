@@ -17,8 +17,8 @@ ttslang = os.environ.get('POPCLIP_OPTION_TTSLANG', 'en')
 tts = os.environ.get('POPCLIP_OPTION_TTS', '1')
 
 translator = Translator(to_lang=destlang)
-translation = translator.translate(text)
-sys.stdout.write(translation + '\n')
+translation = translator.translate(text.replace('\n', ' '))
+sys.stdout.write(translation.encode('utf-8') + '\n')
 
 
 def split_trunks(text):
