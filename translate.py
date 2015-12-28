@@ -52,4 +52,4 @@ if __name__ == "__main__":
     translator = Translator(from_lang=args.from_lang, to_lang=args.to_lang)
     for text in args.texts:
         translation = translator.translate(text)
-        sys.stdout.write(translation.encode('utf-8') + '\n')
+        sys.stdout.write(translation)

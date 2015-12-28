@@ -10,6 +10,7 @@ try:
 except:
     from urllib import request
     from urllib.parse import quote
+from tk import calc_tk
 
 text = os.environ.get('POPCLIP_TEXT', 'hello world')
 destlang = os.environ.get('POPCLIP_OPTION_DESTLANG', 'zh-CN')
@@ -18,7 +19,9 @@ tts = os.environ.get('POPCLIP_OPTION_TTS', '1')
 
 translator = Translator(to_lang=destlang)
 translation = translator.translate(text.replace('\n', ' '))
-sys.stdout.write(translation.encode('utf-8') + '\n')
+if sys.getdefaultencoding() != "utf-8":
+    translation = translation.encode('utf-8')
+sys.stdout.write(translation)
 
 
 def split_trunks(text):
@@ -41,7 +44,6 @@ def split_trunks(text):
                 tmp = w
         arr.append(tmp)
         trunks.extend(arr)
-    #print(trunks)
     return trunks
 
 if tts == '1':
@@ -49,7 +51,7 @@ if tts == '1':
     for text in split_trunks(text):
         r = request.Request(
                 url=('http://translate.google.com/translate_tts'
-                     '?tl=%s&ie=UTF-8&client=t&tk&q=%s') % (ttslang, quote(text, '')),
+                     '?tl=%s&ie=UTF-8&client=t&tk=%s&q=%s') % (ttslang, calc_tk(text), quote(text, '')),
                 headers={'User-Agent': 'Mozilla/5.0',
                          'Referer': 'https://translate.google.com/'})
         f.write(request.urlopen(r).read())
