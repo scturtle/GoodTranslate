@@ -1,5 +1,7 @@
+import os
 import re
 import sys
+import time
 import ctypes
 try:
     import urllib2 as request
@@ -12,7 +14,6 @@ def get_d1():
     t = request.urlopen(req).read().decode('utf8')
     a, b, h = re.search(r"TKK=eval\(\'\(\(function\(\){var a\\x3d(\-?\d+);var b\\x3d(\-?\d+);return (\d+)", t).groups()
     return int(h), ctypes.c_int32(int(a) + int(b)).value
-b, d1 = get_d1()
 
 
 def RL(a, b):
@@ -26,6 +27,15 @@ def RL(a, b):
 
 
 def calc_tk(a):
+    config = os.path.expanduser('~/.tk')
+    b = None
+    if os.path.isfile(config):
+        b, d1 = map(int, open(config).read().split('.'))
+    if b != int(time.time() / 3600):
+        b, d1 = get_d1()
+        with open(config, 'w') as f:
+            f.write('%d.%d' % (b, d1))
+
     if sys.version_info >= (3,):
         d = a.encode('utf-8')
     else:
